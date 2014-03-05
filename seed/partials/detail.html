@@ -1,0 +1,21 @@
+<div class="container">
+	<a class="btn btn-primary" ng-href="#/edit/{{entity._id}}">Edit</a>
+  <div class="row">
+    <div class="col-md-4">				
+			<img class="img-responsive" ng-src="{{entity.coverUrl || '/seed/img/default-book-cover.jpg'}}"></img>
+
+    <!-- The file upload form used as target for the file upload widget -->		
+			
+		</div>
+		<div class="col-md-8">
+			<h1 editable-text="entity.name" 
+					onaftersave="BookUtils.update(book)">{{entity.name}}
+			</h1>
+			
+			<p><small >{{BookUtils.getAuthors(book)}}</small></p>
+			<p editable-text="entity.description" onaftersave="BookUtils.update(book)">{{entity.description}}</p>
+		</div>
+	</div>
+</div>
+
+

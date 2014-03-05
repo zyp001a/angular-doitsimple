@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="bookApp">
+<head>
+  <meta charset="utf-8">
+  <title>Reading!</title>
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="seed/css/app.css">	
+
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">	
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" ng-class="{active:isActive('/')}" href="#">Peter's Bookshelf</a>
+			</div>	
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ng-class="{active:isActive('/list')}"><a href="#/list">List</a></li>
+					<li ng-class="{active:isActive('/add')}"><a href="#/add">Add</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+  <div ng-view></div>
+
+	<script src="vendor/jquery-1.11.0.js"></script>
+	<script src="vendor/angular.min.js"></script>
+  <script src="vendor/angular-resource.min.js"></script>
+  <script src="vendor/angular-route.min.js"></script>
+	<script src="vendor/xeditable.js"></script>
+	<script src="vendor/load-image.min.js"></script>
+	<script src="vendor/jquery.ui.widget.js"></script>
+	<script src="vendor/jquery.iframe-transport.js"></script>
+	<script src="vendor/jquery.fileupload.js"></script>
+	<script src="vendor/jquery.fileupload-process.js"></script>
+	<script src="vendor/jquery.fileupload-image.js"></script>
+	<script src="vendor/jquery.fileupload-audio.js"></script>
+	<script src="vendor/jquery.fileupload-video.js"></script>
+	<script src="vendor/jquery.fileupload-validate.js"></script>
+	<script src="vendor/jquery.fileupload-angular.js"></script>
+
+  <script src="src/app.js"></script>
+	<script src="src/config.js"></script>
+  <script src="src/route.js"></script>
+  <script src="src/controllers/main.js"></script>
+  <script src="src/controllers/header.js"></script>
+	<script src="src/services/restfulAPI.js"></script>
+  <script src="src/services/commonUtils.js"></script>  
+
+
+  <script src="bootstrap/js/bootstrap.min.js"></script>	
+	<script src="seed/js/app.js"></script>	
+	
+</body>
+</html>
