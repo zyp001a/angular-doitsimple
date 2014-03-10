@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+		<div class="col-md-9" role="main">
+			<div json="entities" method="list"></div>
+		</div>
+    <div class="col-md-3" role="complementary">
+      <!--Sidebar content-->
+
+			<div class="form-group">
+				<label class="control-label" for="searchResult">Filter</label>
+				<input type="text" class="form-control" id="searchResult" ng-model="query">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="sortResult">Order</label>
+
+				<select class="form-control" id="searchResult" 								
+								ng-model="orderProp">
+					<option value="">-- choose order --</option>
+					<option ng-repeat="it in defaultEntityProp | filter:utils.isOrderable"	ng-selected="{{it.key == orderProp}}"	value="{{it.key}}">{{it.key}}</option>
+
+				</select>				
+
+			</div>
+			<div class="form-group">
+				<span><strong>Statistics</strong><span>
+				<table class="table table-striped">
+          <thead>
+<!--
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+            </tr>
+-->
+          </thead>
+          <tbody>
+            <tr>
+              <td>entityCount</td>
+              <td>{{entities.length}}</td>
+            </tr>
+          </tbody>
+        </table>	
+			</div>
+
+    </div>
+
+  </div>
+</div>
