@@ -1,8 +1,12 @@
 {
-  "name": "angularjs-seed",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "name": "angularjs-doitsimple",
+  "description": "A configurable AngularJS framework",
+  "repository": "https://github.com/angular/angular-doitsimple",
   "devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-jshint": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-uglify": "*"
     "phantomjs": "~1.9",
     "karma": "~0.10.4",
     "karma-junit-reporter": "~0.1",

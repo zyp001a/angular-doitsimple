@@ -1,8 +1,17 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-4">				
+    <div class="col-md-4">
 			<img class="img-responsive" ng-src="{{entity.coverUrl || '/seed/img/default-book-cover.jpg'}}"></img>
+<!--				<input id="fileupload" type="file" name="files[]" data-url="/upload" multiple>-->
+			<div ng-controller="FileUpload">
+				<div file-upload-direct></div>
+				<div file-upload-list></div>
+				<div file-upload-process></div>
+				<div file-upload-add></div>
+				<div file-upload-submit></div>
+				<div file-upload-cancel></div>
+			</div>
 		</div>
 		<div class="col-md-8"> 
 			<form class="form-group">
@@ -28,12 +37,26 @@
 				<label class="control-label" >Description</label>
 				<textarea rows="3" class="form-control" ng-model="entity.description">
 				</textarea>
-				<a class="btn btn-primary" 
-					 ng-click="saveEntity()">Save</a>
-				<button class="btn btn-default">Cancel</button>
+
+				<p>
+					<a class="btn btn-primary" 
+						 ng-click="saveEntity()">Save</a>
+					<button class="btn btn-default">Cancel</button>
+				</p>
 			</form>
 		</div>
 	</div>
 </div>
-
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>
 
