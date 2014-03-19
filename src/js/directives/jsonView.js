@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var eveJsonDisplay = angular.module('eveJsonDisplay', [], 
+var eDirJsonView = angular.module('eDirJsonView', [], 
 	function($compileProvider){
 		$compileProvider.directive('json', function($compile, $parse) {
 			return function(scope, element, attrs) {
@@ -18,9 +18,7 @@ var eveJsonDisplay = angular.module('eveJsonDisplay', [],
 				var getHtmlList = function(value, model){
 					var json = value.defaultEntity;
 					var html = '<div class="col-md-9">';
-					html += '<div ng-repeat="entity in ' + model + ' track by $index | filter:query | orderBy:orderProp" ><h2><a href="#/detail/{{entity._id}}">{{entity.name}}</a></h2>';
-					html+='<a href="#/edit/{{entity._id}}" class="btn btn-xs btn-primary">Edit</a>';
-					html+='<a ng-click="utils.deleteFromEntities(entities, $index)" class="btn btn-xs btn-danger">Delete</a>';
+					html += '<div ng-repeat="entity in entities track by $index | filter:query | orderBy:orderProp" ><h2><a href="#/detail/{{entity._id}}">{{entity.name}}</a></h2><a href="#/edit/{{entity._id}}" class="btn btn-xs btn-primary">Edit</a><a ng-click="utils.deleteFromEntities(entities, $index)" class="btn btn-xs btn-danger">Delete</a>';
 					for (var key in json){
 						if(key[0]==="$" || key[0]==="_") continue;
 						if(key === 'name'){
@@ -100,47 +98,18 @@ var eveJsonDisplay = angular.module('eveJsonDisplay', [],
 					for (var key in json){
 						var value= json[key];
 						if(key[0]==="$" || key[0]==="_") continue;
-						html+=('<ul class="list-inline"><li><strong>'+key+': </strong><li>');
-						html+=getHtml(value);
-						html+='</ul>';
+            if(key === 'name'){
+							html += '<h2><a href="#/detail/{{entity._id}}">{{entity.name}}</a></h2>';
+            }
+						else{
+							html+=('<ul class="list-inline"><li><strong>'+key+': </strong><li>');
+							html+=getHtml(value);
+							html+='</ul>';
+						}
 					}
 					html += '</div>';
 					return html;
 				};
-				/*
-				 var getHtml =  function(value){
-				 var html='';
-				 switch (typeof value) {
-				 case 'object':
-				 if(angular.isArray(value)){
-				 html+='<ul class="list-inline">';
-				 value.forEach(function(el){
-				 html+=('<li>'+getHtml(el)+'</li>');
-				 });
-				 html+="</ul>";
-				 }
-				 else{
-				 html+=getHtmlSub(value);
-				 }
-				 break;
-				 default:
-				 html+=value.toString();
-				 }
-				 return html;
-				 };
-				 var getHtmlSub = function(json){
-				 var html = '<div>';
-				 for (var key in json){
-				 var value= json[key];
-				 if(key[0]==="$" || key[0]==="_") continue;
-				 html+=('<ul class="list-inline"><li><strong>'+key+': </strong><li>');
-				 html+=getHtml(value);
-				 html+='</ul>';
-				 }
-				 html += '</div>';
-				 return html;
-				 };
-				 */
 
 				var getLiteral = function(str){
 					return str.replace(".","_").replace(/\[\S+\]/g, "");
@@ -191,16 +160,17 @@ var eveJsonDisplay = angular.module('eveJsonDisplay', [],
 
 
         scope.$watch(attrs.json, function(value) {
+					console.log(attrs);
 					// when the 'compile' expression changes
 					// assign it into the current DOM
 					if(angular.isDefined(attrs.resolved)) return;
 					
-					var applyElementRaw = function(parseFunction){
+					function applyElementRaw(parseFunction){
 						element.html(parseFunction(value, attrs.json) + element.html());
 						$compile(element.contents())(scope);
 						attrs.resolved = '';
 					};
-					var applyElementWithPromise = function(parseFunction){
+					function applyElement(parseFunction){
 						if(value.$promise){
 							value.$promise.then(function(){
 								applyElementRaw(parseFunction);
@@ -210,23 +180,20 @@ var eveJsonDisplay = angular.module('eveJsonDisplay', [],
 							applyElementRaw(parseFunction);
 						}
 					};
-					var applyElement = applyElementRaw;
-					if(angular.isDefined(attrs.promise))
-						applyElement = angular.isDefined(attrs.promise)?applyElementWithPromise:applyElementRaw;
-					switch(attrs.method){
-					case 'list':
-						applyElementWithPromise(getHtmlList);
-						break;
-					case 'modify':
-						applyElementWithPromise(getHtmlModify);
-						break;
-					case 'detail':
-						applyElementWithPromise(getHtmlDetail);
-						break;
+					function applyElementWithPromise(parseFunction){
+						value.$promise.then(function(){
+              applyElementRaw(parseFunction);
+            });
+					}
+					
+					applyElement = angular.isDefined(attrs.promise)?applyElementWithPromise:applyElement;
+						console.log(attrs.type);
+					switch(attrs.type){
 					case 'view':
+						console.log('view');
 						applyElement(getHtml);
 						break;
-					case 'input':
+					case 'edit':
 						applyElement(getHtmlInput);
 						break;
 					case 'editable':

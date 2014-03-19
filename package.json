@@ -15,8 +15,8 @@
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma-script-launcher": "~0.1.0",
-
-    "uglifyjs": "~2.3.6",
-    "yuicompressor": "~2.4.8"
+    "yuicompressor": "~2.4.8",
+    "ngmin": "~0.4.1",
+    "uglify-js": "~2.4.12"
   }
 }
