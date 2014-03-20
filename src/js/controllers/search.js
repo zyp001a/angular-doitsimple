@@ -5,19 +5,19 @@
 var eCtrlSearch = 
 			angular.module('eCtrlSearch', ['eServCommon', 'eServREST']);
 
-eCtrlSearch.run(function(CommonServ, Config){
-	CommonServ.addRoute(Config.webRoot + "/search", {
-		template: '<div ng-include="include"></div>',
-		controller: 'SearchCtrl'
-	});
+eCtrlSearch.run(function(ServCommon){
+	ServCommon.addRoute("/search", 'SearchCtrl');
 });
 
 eCtrlSearch.controller('SearchCtrl', 
-  function($scope, Config, RESTServ, CommonServ){
-    $scope.include = CommonServ.getTemplateUrl('list');
-		$scope.defaultEntityProp = CommonServ.toPropArray(Config.defaultEntity);
-    $scope.entities = RESTServ.query();
+  function($scope, Config, ServREST, ServCommon){
+    $scope.include = ServCommon.getTemplateUrl('list');
+		$scope.defaultEntityProp = ServCommon.toPropArray(Config.getDefaultEntity());
+    $scope.entities = ServREST.query();
+		console.log($scope.entities);
 		$scope.entities.defaultEntity = Config.getDefaultEntity();
-    $scope.utils = CommonServ;
+    $scope.navigate = ServCommon.navigate;
+    $scope.getUrl = ServCommon.getUrl;
+    $scope.delete = ServREST.deleteFromEntities;
   });
 

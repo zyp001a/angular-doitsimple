@@ -1,11 +1,17 @@
 <div class="container">
+	<div class="row">
+		<div>        
+			<p><a ng-click="navigate('/create')" class="btn btn-xs btn-success">Add</a></p>
+			<input type="text" class="form-control" ng-model="a">
+			<p><a ng-click="navigate('/search')" class="btn btn-xs btn-info">Search</a></p>
+		</div>
+	</div>
   <div class="row">
-		<div class="col-md-9" role="main">
-			
+		<div class="col-md-9" role="main">			
 			<div ng-repeat="entity in entities track by $index | filter:query | orderBy:orderProp" >
 				<div json="entity" type="view"></div>
-				<a href="#/edit/{{entity._id}}" class="btn btn-xs btn-primary">Edit</a>
-				<a ng-click="utils.deleteFromEntities(entities, $index)" class="btn btn-xs btn-danger">Delete</a>
+				<a ng-click="navigate('/update/'+entity._id)" class="btn btn-xs btn-primary">Edit</a>
+				<a ng-click="delete(entities, $index)" class="btn btn-xs btn-danger">Delete</a>
 			</div>
 		</div>
     <div class="col-md-3" role="complementary">

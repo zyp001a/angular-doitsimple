@@ -15,6 +15,7 @@ var eDirJsonView = angular.module('eDirJsonView', [],
 					return html;
 				};
 */
+/*
 				var getHtmlList = function(value, model){
 					var json = value.defaultEntity;
 					var html = '<div class="col-md-9">';
@@ -71,7 +72,7 @@ var eDirJsonView = angular.module('eDirJsonView', [],
 					return html;
 
 				};
-
+*/
 
 				var getHtml = function(value){
 					var html='';
@@ -99,7 +100,7 @@ var eDirJsonView = angular.module('eDirJsonView', [],
 						var value= json[key];
 						if(key[0]==="$" || key[0]==="_") continue;
             if(key === 'name'){
-							html += '<h2><a href="#/detail/{{entity._id}}">{{entity.name}}</a></h2>';
+							html += '<h2><a ng-href="{{getUrl(\'/read/\'+entity._id)}}">{{entity.name}}</a></h2>';
             }
 						else{
 							html+=('<ul class="list-inline"><li><strong>'+key+': </strong><li>');
@@ -126,7 +127,7 @@ var eDirJsonView = angular.module('eDirJsonView', [],
 //							console.log(modelI);
 							html+='<ul class="list-inline">';
 							html+=('<li ng-repeat="it in ' + model + ' track by $index" ng-init="' + modelI + '=$index">');
-							html+='<div class="input-group" json="' + model+ '[' + modelI + ']" method="input">';
+							html+='<div class="input-group" json="' + model+ '[' + modelI + ']" type="edit">';
 							html+='<span class="input-group-btn"><a button class="btn btn-default" ng-click="' + model + '.splice(' + modelI + ',1)"><span class="glyphicon glyphicon-remove"></span></a></span>';
 							html+='</div></li>';
 							html+='<button class="btn btn-xs btn-primary" ng-click="'+model+'.push(\'\')"><span class="glyphicon glyphicon-plus"></span></button>';
@@ -157,10 +158,8 @@ var eDirJsonView = angular.module('eDirJsonView', [],
 				};
 
 
-
-
         scope.$watch(attrs.json, function(value) {
-					console.log(attrs);
+
 					// when the 'compile' expression changes
 					// assign it into the current DOM
 					if(angular.isDefined(attrs.resolved)) return;
@@ -186,11 +185,10 @@ var eDirJsonView = angular.module('eDirJsonView', [],
             });
 					}
 					
-					applyElement = angular.isDefined(attrs.promise)?applyElementWithPromise:applyElement;
-						console.log(attrs.type);
+					applyElement = angular.isDefined(attrs.promise)?
+						applyElementWithPromise:applyElement;
 					switch(attrs.type){
 					case 'view':
-						console.log('view');
 						applyElement(getHtml);
 						break;
 					case 'edit':
