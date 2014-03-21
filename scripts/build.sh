@@ -14,7 +14,8 @@ cd $BASE_DIR
 pwd
 ./node_modules/yuicompressor/nodejs/cli.js --type css -o dist/css/angular-doitsimple.css  src/css/*.css
 
-cat src/js/*.js src/js/*/*.js | ngmin >concat.tmp.js
+echo "" | cat - src/js/index.js | >dis/js/angular-doitsimple.js
+
 ./node_modules/uglify-js/bin/uglifyjs concat.tmp.js \
          -o dist/js/angular-doitsimple.min.js \
          -c 

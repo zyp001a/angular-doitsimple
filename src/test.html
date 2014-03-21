@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" ng-app="bookApp">
+<html lang="en" ng-app="doitApp">
 <head>
   <meta charset="utf-8">
   <title>Reading!</title>
 
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="css/angular-doitsimple.css">	
+  <link rel="stylesheet" href="css/doitsimple.css">	
 
 </head>
 <body>
@@ -18,7 +18,7 @@
 			</div>	
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li ng-class="{active:isActive('/book/search')}"><a href="#/book/search">Book</a></li>
+					<li ng-class="{active:isActive('/book/list')}"><a href="#/book/list">Book</a></li>
 					<li ng-class="{active:isActive('/user')}"><a href="#/user">User</a></li>
 					<li ng-class="{active:isActive('/about')}"><a href="#/about">About</a></li>
 				</ul>
@@ -45,14 +45,16 @@
 	<script src="vendor/addon/jquery.fileupload-validate.js"></script>
 	<script src="vendor/addon/jquery.fileupload-angular.js"></script>
 
-  <script src="js/index.js"></script>
+  <script src="vendor/doitsimple/js/doitsimple.js"></script>
+
+<!--
   <script src="js/services/common.js"></script>  
   <script src="js/services/REST.js"></script>  
   <script src="js/controllers/main.js"></script>  
   <script src="js/controllers/CRUD.js"></script>  
   <script src="js/controllers/search.js"></script>  
   <script src="js/directives/jsonView.js"></script>  
-
+-->
 
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>	
 	<script src="test.js"></script>	
