@@ -1,52 +1,42 @@
-var bookApp = angular.module('bookApp',
-	[
-		'eveCore', 
-		'eveHeaderController'
-	]);
-
-bookApp.run(function(Config){
-//	Config.dirRoot = "";
-//	Config.templateUrls.list = "seed/partials/list.html";
-//	Config.templateUrls.modify = "seed/partials/modify.html";
-
-	Config.getDefaultTplRoot = function(){ 
-		return "vendor/angular-doitsimple/html";
-	};
-	Config.getRestRoot = function(){
-		return "/api/books";
-	};
-	Config.getDefaultEntity = function(){
-		return {
-      name: '',
-      authors: [''],
-      description: ''
-    };
-	};
-
+doit.init({
+	resourceRoot: 'vendor/doitsimple',
+	modules: [
+		{
+			type: 'restView',
+			name: 'book',
+			apiRoot: '/api/books',
+			webRoot: '/book',
+			tokenField: 'access_token',
+			emptyEntity: {
+				name: '',
+				authors: [''],
+				description: ''
+			}
+		},
+		{
+			type: 'restView',
+			name: 'user',
+			apiRoot: '/api/user',
+			webRoot: '/user',
+			tokenField: 'access_token',
+			emptyEntity: {
+				userid: '',
+				access_token: ''
+			}
+		},
+		{
+			type: 'listView',
+			name: 'bookList',
+			src: 'book'
+		},
+		{
+			type: 'listView',
+			name: 'userList',
+			src: 'user'
+		},
+		{
+			type: 'jsonView',
+			name: 'jsonView'
+		}
+	]
 });
-
-
-var userApp = angular.module('userApp',
-	[
-		'eveCore', 
-		'eveHeaderController'
-
-	]);
-userApp.run(function(Config){
-//	Config.dirRoot = "";
-//	Config.templateUrls.list = "seed/partials/list.html";
-//	Config.templateUrls.modify = "seed/partials/modify.html";
-	Config.getDefaultTplRoot = function(){ 
-		return "vendor/angular-doitsimple/html";
-	};
-	Config.getRestRoot = function(){
-		return "/api/user";
-	};
-	Config.getDefaultEntity = function(){
-		return {
-      userid: '',
-      access_token: ''
-    };};
-
-});
-

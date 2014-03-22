@@ -6,7 +6,7 @@ var defaultConfig = {
 	]
 };
 var exampleConfig = {
-	resourceRoot: '',
+	resourceRoot: 'vendor/doitsimple',
 	modules: [
 		{
 			type: 'restView',
@@ -48,7 +48,8 @@ function getConfig(){
 	return config;
 }
 function extendConfig(configToExtend, configToSet){
-  var config = configToExtend;
+  var config = {};
+	angular.extend(config, configToExtend);
   for (var key in configToSet){
     config[key] = configToSet[key];
   }
@@ -95,6 +96,7 @@ function init(configToSet){
 		
 	config.modules.forEach(function(modConfig){
 		config.modules[modConfig.name] = modConfig;
+		console.log('load module: '+modConfig.name);
 		loadModule(modConfig);
 	});
 	initApp();

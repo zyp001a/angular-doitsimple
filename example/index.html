@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" ng-app="bookApp">
+<html lang="en" ng-app="doitApp">
 <head>
   <meta charset="utf-8">
   <title>Reading!</title>
 
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="vendor/angular-doitsimple/css/angular-doitsimple.css">	
+  <link rel="stylesheet" href="vendor/doitsimple/css/doitsimple.css">	
 
 </head>
 <body>
@@ -18,8 +18,9 @@
 			</div>	
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li ng-class="{active:isActive('/list')}"><a href="#/list">List</a></li>
-					<li ng-class="{active:isActive('/add')}"><a href="#/add">Add</a></li>
+					<li ng-class="{active:isActive('/book/list')}"><a href="#/book/list">Book</a></li>
+					<li ng-class="{active:isActive('/user/list')}"><a href="#/user/list">User</a></li>
+					<li ng-class="{active:isActive('/about')}"><a href="#/about">About</a></li>
 				</ul>
 			</div>
 		</div>
@@ -27,11 +28,34 @@
 
   <div ng-view></div>
 
-  <script src="vendor/core/jquery-1.11.0.js"></script>
-  <script src="vendor/core/angular.min.js"></script>
+	<script src="vendor/core/jquery-1.11.0.js"></script>
+	<script src="vendor/core/angular.min.js"></script>
   <script src="vendor/core/angular-resource.min.js"></script>
   <script src="vendor/core/angular-route.min.js"></script>
-  <script src="vendor/angular-doitsimple/js/angular-doitsimple.min.js"></script>
+
+	<script src="vendor/addon/xeditable.js"></script>
+	<script src="vendor/addon/load-image.min.js"></script>
+	<script src="vendor/addon/jquery.ui.widget.js"></script>
+	<script src="vendor/addon/jquery.iframe-transport.js"></script>
+	<script src="vendor/addon/jquery.fileupload.js"></script>
+	<script src="vendor/addon/jquery.fileupload-process.js"></script>
+	<script src="vendor/addon/jquery.fileupload-image.js"></script>
+	<script src="vendor/addon/jquery.fileupload-audio.js"></script>
+	<script src="vendor/addon/jquery.fileupload-video.js"></script>
+	<script src="vendor/addon/jquery.fileupload-validate.js"></script>
+	<script src="vendor/addon/jquery.fileupload-angular.js"></script>
+
+  <script src="vendor/doitsimple/js/doitsimple.js"></script>
+
+<!--
+  <script src="js/services/common.js"></script>  
+  <script src="js/services/REST.js"></script>  
+  <script src="js/controllers/main.js"></script>  
+  <script src="js/controllers/CRUD.js"></script>  
+  <script src="js/controllers/search.js"></script>  
+  <script src="js/directives/jsonView.js"></script>  
+-->
+
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>	
 	<script src="app.js"></script>	
 	

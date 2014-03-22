@@ -3,8 +3,7 @@ var defaultConfig = {
 	type: 'restView',
 	tokenField: 'access_token'
 };
-var config;
-var angularMod;
+
 doit.module[defaultConfig.type] = {
 	init: init
 };
@@ -20,18 +19,19 @@ function validateConfig(configToVal){
 }
 
 function init(configToSet){
-	console.log(configToSet);
-	config = doit.extendConfig(defaultConfig, configToSet);
+//	console.log(configToSet);
+	var config = doit.extendConfig(defaultConfig, configToSet);
 	validateConfig(config);
 	configToSet = config;
 
-  angularMod = angular.module(config.name,['ngRoute', 'ngResource']);
+  var angularMod = angular.module(config.name, ['ngRoute', 'ngResource']);
   angularMod.constant(config.name+'Config', config);
-	initServ();
-	initCtrl();
+	initServ(config, angularMod);
+	initCtrl(config, angularMod);
 }
 
-function initServ(){
+function initServ(config, angularMod){
+	console.log('rest init: '+config.name);
 	angularMod.factory(config.name+'Serv', [
 		'$location', config.name+'Config', 'CommonServ',
 		function($location, SpecConfig, CommonServ){
@@ -50,6 +50,7 @@ function initServ(){
 			var token_json={};
 			var restToken = Config.tokenField;
 			var restRoot = Config.apiRoot;
+			console.log(Config.apiRoot);
 			if(restToken){
 				token_json[restToken] = "token1";
 			}
@@ -64,9 +65,7 @@ function initServ(){
 				};
 				api.updateAndReadEntity = function(entity){
 					var id = entity._id;
-					console.log(entity);
 					api.update({id:id}, entity, function(entity){
-						console.log(entity);
 						SpecServ.navigate("/read/"+entity._id);
 					});
 				};
@@ -100,16 +99,16 @@ function initServ(){
 
 	
 }
-function initCtrl(){
+function initCtrl(config, angularMod){
 	angularMod.run([
 		config.name+'Config', 'CommonServ', 
 		function(Config, CommonServ){
-			CommonServ.addRoute(Config.webRoot + '/create', 'CreateCtrl');
-			CommonServ.addRoute(Config.webRoot + '/update/:id', 'UpdateCtrl');
-			CommonServ.addRoute(Config.webRoot + '/read/:id', 'ReadCtrl');
+			CommonServ.addRoute(Config.webRoot + '/create', config.name+'CreateCtrl');
+			CommonServ.addRoute(Config.webRoot + '/update/:id', config.name+'UpdateCtrl');
+			CommonServ.addRoute(Config.webRoot + '/read/:id', config.name+'ReadCtrl');
 		}]); 
 
-	angularMod.controller('CreateCtrl', [
+	angularMod.controller(config.name+'CreateCtrl', [
 		'$scope', config.name+'Config', 'CommonServ', config.name+'RESTServ',
 		function($scope, Config, CommonServ, RESTServ) {
 			$scope.include = CommonServ.getTemplateUrl('modify');
@@ -121,7 +120,7 @@ function initCtrl(){
 		}]);
 
 
-	angularMod.controller('UpdateCtrl', [
+	angularMod.controller(config.name+'UpdateCtrl', [
 		'$scope', '$routeParams', 'CommonServ', config.name+'RESTServ',
 		function($scope, $routeParams, CommonServ, RESTServ) {
 			$scope.include = CommonServ.getTemplateUrl('modify');
@@ -133,7 +132,7 @@ function initCtrl(){
 			});
 		}]);
 
-	angularMod.controller('ReadCtrl', [
+	angularMod.controller(config.name+'ReadCtrl', [
 		'$scope', '$routeParams', 'CommonServ', config.name+'RESTServ',
 		function($scope, $routeParams, CommonServ, RESTServ) {
 			$scope.include = CommonServ.getTemplateUrl('detail');
